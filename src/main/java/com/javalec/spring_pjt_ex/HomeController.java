@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.javalec.spring_pjt_ex.com.ITicketCom;
 import com.javalec.spring_pjt_ex.dao.TicketDao;
 import com.javalec.spring_pjt_ex.dto.TicketDto;
 
@@ -21,11 +22,18 @@ import com.javalec.spring_pjt_ex.dto.TicketDto;
 @Controller
 public class HomeController {
 	
-	private TicketDao dao;
+//	private TicketDao dao;
+	
+	private ITicketCom ticketCom;
+	
+//	@Autowired
+//	public void setDao(TicketDao dao) {
+//		this.dao = dao;
+//	}
 	
 	@Autowired
-	public void setDao(TicketDao dao) {
-		this.dao = dao;
+	public void setTicketCom(ITicketCom ticketCom) {
+		this.ticketCom = ticketCom;
 	}
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -59,7 +67,8 @@ public class HomeController {
 		System.out.println( "ticketDto : " + ticketDto.getConsumerId() );
 		System.out.println( "ticketDto : " + ticketDto.getAmount() );
 		
-		dao.buyTicket(ticketDto);
+//		dao.buyTicket(ticketDto);
+		ticketCom.execute(ticketDto);
 		
 		model.addAttribute("ticketInfo", ticketDto);
 		
